@@ -163,6 +163,26 @@
       btnSi.style.display = 'none';
       btnNo.style.display = 'none';
     });
+
+    // Generador de corazones flotantes
+    function crearCorazon() {
+      const corazon = document.createElement('div');
+      corazon.classList.add('corazon');
+      corazon.textContent = '💖';
+      corazon.style.left = Math.random() * 100 + 'vw';
+      corazon.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      corazon.style.animationDuration = (Math.random() * 5 + 5) + 's';
+
+      document.getElementById('corazones-container').appendChild(corazon);
+
+      // Eliminar el corazón después de que termina su animación
+      setTimeout(() => {
+        corazon.remove();
+      }, 10000);
+    }
+
+    // Generar corazones cada 300ms
+    setInterval(crearCorazon, 50);
   </script>
 </body>
 </html>
