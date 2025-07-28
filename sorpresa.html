@@ -79,7 +79,7 @@
 
             @keyframes float {
                 0% {
-                    transform: translateY(100vh) translateX(-100);
+                    transform: translateY(100vh) translateX(-100%);
 
                 }
                 100% {
@@ -123,7 +123,7 @@
 
         <!---Musica romantica de fondo--->
         <audio autoplay loop>
-            <source src="https://youtu.be/0lSjgovoJBw?si=bwKeByGCWLDCTs8j" type ="audio/mp3"
+            <source src="https://limewire.com/d/zogIf#xkxio0NjkF" type ="audio/mp3"
         </audio>
 
         <div class = "contenedor">
@@ -140,7 +140,7 @@
         <script>
             const btnNo = document.querySelector('.no');
             const btnSi = document.querySelector('.si');
-            const mensjae = document.querySelector('.mensaje-final');
+            const mensaje = document.querySelector('.mensaje-final');
 
             //Mueve el boton "No" aleatoriamente si salirse de la pantalla
             btnNo.addEventListener('mouseover',() => {
@@ -150,12 +150,12 @@
                 const x = Math.random() * maxWidth;
                 const y = Math.random() * maxHeight;
 
-                btnNo.style.left = '${x}px';
-                btnNo.style.top = '${y}px';
+                btnNo.style.left = `${x}px`;
+                btnNo.style.top = `${y}px`;
             });
 
             btnSi.addEventListener('click',() => {
-                mensjae.style.display = 'block';
+                mensaje.style.display = 'block';
                 btnSi.style.display = 'none';
                 btnNo.style.display = 'none';
             });
