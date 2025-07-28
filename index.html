@@ -10,6 +10,7 @@
       background: #ffe6f0;
       font-family: 'Comic Sans MS', cursive;
       overflow: hidden;
+      position: relative;
     }
 
     .contenedor {
@@ -61,32 +62,6 @@
       background-color: #999999;
     }
 
-    .corazones::before,
-    .corazones::after {
-      content: "💖💗💓💘💕💞";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      font-size: 30px;
-      animation: float 10s linear infinite;
-      white-space: nowrap;
-      z-index: 0;
-    }
-
-    .corazones::after {
-      animation-delay: 5s;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) translateX(-100%);
-      }
-      100% {
-        transform: translateY(-100vh) translateX(100%);
-      }
-    }
-
     .mensaje-final {
       display: none;
       font-size: 32px;
@@ -96,6 +71,36 @@
 
     audio {
       display: none;
+    }
+
+    .corazon {
+      position: absolute;
+      bottom: 0;
+      animation: flotar 10s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Contenedor de corazones flotantes */
+    #corazones-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
     }
 
     /* Móviles */
@@ -136,7 +141,7 @@
     <div class="mensaje-final">¡Sabía que ibas a decir que sí! 💖 Te amo mucho 😘</div>
   </div>
 
-  <div class="corazones"></div>
+  <div id="corazones-container"></div>
 
   <script>
     const btnNo = document.querySelector('.no');
@@ -154,17 +159,6 @@
       btnNo.style.top = `${y}px`;
     }
 
-    btnNo.addEventListener('mouseenter', moverBoton);
-    btnNo.addEventListener('click', moverBoton);
-    btnNo.addEventListener('touchstart', moverBoton);
-
-    btnSi.addEventListener('click', () => {
-      mensaje.style.display = 'block';
-      btnSi.style.display = 'none';
-      btnNo.style.display = 'none';
-    });
-
-    // Generador de corazones flotantes
     function crearCorazon() {
       const corazon = document.createElement('div');
       corazon.classList.add('corazon');
@@ -175,14 +169,23 @@
 
       document.getElementById('corazones-container').appendChild(corazon);
 
-      // Eliminar el corazón después de que termina su animación
-      setTimeout(() => {
-        corazon.remove();
-      }, 10000);
+      setTimeout(() => corazon.remove(), 10000);
     }
 
-    // Generar corazones cada 300ms
-    setInterval(crearCorazon, 50);
+    // Movimiento infinito del botón "No"
+    btnNo.addEventListener('mouseenter', moverBoton);
+    btnNo.addEventListener('click', moverBoton);
+    btnNo.addEventListener('touchstart', moverBoton);
+
+    // Botón "Sí"
+    btnSi.addEventListener('click', () => {
+      mensaje.style.display = 'block';
+      btnSi.style.display = 'none';
+      btnNo.style.display = 'none';
+    });
+
+    // Corazones flotantes constantes
+    setInterval(crearCorazon, 200);
   </script>
 </body>
 </html>
