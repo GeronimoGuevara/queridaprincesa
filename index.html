@@ -180,6 +180,7 @@
 
     // Botón "Sí"
     btnSi.addEventListener('click', () => {
+      musica.play().catch(() => {});
       mensaje.style.display = 'block';
       btnSi.style.display = 'none';
       btnNo.style.display = 'none';
