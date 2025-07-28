@@ -1,165 +1,167 @@
 <!DOCTYPE html>
-<html lang = "es">
-    <head>
-        <meta charset = "UTF-8">
-        <title>¿Queres ser mi novia?</title>
-        <style>
-            body {
-                margin: 0;
-                background: #ffe6f0;
-                font-family: 'Comic Sans MS', cursive;
-                overflow: hidden;
-            }
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¿Querés ser mi novia?</title>
+    <style>
+        body {
+            margin: 0;
+            background: #ffe6f0;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+        }
 
-            .contenedor {
-                text-align: center;
-                margin-top: 100px;
-                z-index: 10;
-                position: relative;
-            }
+        .contenedor {
+            text-align: center;
+            margin-top: 100px;
+            z-index: 10;
+            position: relative;
+        }
 
+        h1 {
+            color: #d63384;
+            font-size: 40px;
+            margin: 20px;
+        }
+
+        .botones {
+            margin-top: 30px;
+            position: relative;
+            height: 200px;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            position: absolute;
+        }
+
+        .si {
+            background-color: #ff66b2;
+            color: white;
+            left: 35%;
+        }
+
+        .no {
+            background-color: #cccccc;
+            color: #333;
+            left: 55%;
+        }
+
+        .si:hover {
+            background-color: #ff3399;
+        }
+
+        .no:hover {
+            background-color: #999999;
+        }
+
+        .corazones::before,
+        .corazones::after {
+            content: "💖💗💓💘💕💞";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            font-size: 30px;
+            animation: float 10s linear infinite;
+            white-space: nowrap;
+            z-index: 0;
+        }
+
+        .corazones::after {
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(-100%);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100%);
+            }
+        }
+
+        .mensaje-final {
+            display: none;
+            font-size: 32px;
+            color: #ff3385;
+            margin-top: 50px;
+        }
+
+        audio {
+            display: none;
+        }
+
+        /* Responsivo para celulares */
+        @media screen and (max-width: 600px) {
             h1 {
-                color: #d63384;
-                font-size: 40px;
-                margin: 20px;
-            }
-
-            .botones {
-                margin-top: 30px;
-                position: relative;
-                height: 200px;
+                font-size: 28px;
             }
 
             button {
-                padding: 15px 25px;
-                font-size: 20px;
-                border-radius: 20px;
-                border: none;
-                cursor: pointer;
-                transition: 0.3s;
-                position: absolute;
+                font-size: 18px;
+                padding: 12px 20px;
             }
 
             .si {
-                background-color: #ff66b2;
-                color: white;
-                left: 35%;
+                left: 25%;
             }
 
             .no {
-                background-color: #cccccc;
-                color: #333;
                 left: 55%;
             }
+        }
+    </style>
+</head>
+<body>
 
-            .si:hover {
-                background-color: #ff3399;
-            }
+    <!-- Música romántica de fondo -->
+    <audio autoplay loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        Tu navegador no soporta audio.
+    </audio>
 
-            .no:hover {
-                background-color: #999999;
-            }
-
-            .corazones::before,
-            .corazones::after {
-                content: "💖💗💓💘💕💞";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                font-size: 30px;
-                animation: float 10s linear infinite;
-                white-space: nowrap;
-                z-index: 0;
-            }
-
-            .corazones::after {
-                animation-delay: 5s;
-            }
-
-            @keyframes float {
-                0% {
-                    transform: translateY(100vh) translateX(-100%);
-
-                }
-                100% {
-                    transform: translateY(-100vh) translateX(100%);
-                }
-            }
-
-            .mensaje-final {
-                display: none;
-                font-size: 32px;
-                color: #ff3385;
-                margin-top: 50px;
-            }
-
-            audio {
-                display: none;
-            }
-
-            /* Responsivo para celulares */
-
-            @media screen and (max-width: 600px) {
-                h1 {
-                    font-size: 28px;
-                }
-
-                button {
-                    font-size: 18px;
-                    padding: 12px 20px;
-                }
-
-                .botones button.no {
-                    left: 55%;
-                }
-
-            }
-
-        </style>
-    </head>
-
-    <body>
-
-        <!---Musica romantica de fondo--->
-        <audio autoplay loop>
-            <source src="https://limewire.com/d/zogIf#xkxio0NjkF" type ="audio/mp3"
-        </audio>
-
-        <div class = "contenedor">
-            <h1>¿Querés ser mi novia? ❤️</h1>
-            <div class = "botones">
-                <button class="si">Sí 🥰</button>
-                <button class="no">No 😔</button>
-            </div>
-            <div class = "mensaje-final">¡Sabia que ibas a decir que sí! 💖 Te amo mucho 😘 </div>
+    <div class="contenedor">
+        <h1>¿Querés ser mi novia? ❤️</h1>
+        <div class="botones">
+            <button class="si">Sí 🥰</button>
+            <button class="no">No 😔</button>
         </div>
-    
-        <div class = "corazones"></div>
+        <div class="mensaje-final">¡Sabía que ibas a decir que sí! 💖 Te amo mucho 😘</div>
+    </div>
 
-        <script>
-            const btnNo = document.querySelector('.no');
-            const btnSi = document.querySelector('.si');
-            const mensaje = document.querySelector('.mensaje-final');
+    <div class="corazones"></div>
 
-            //Mueve el boton "No" aleatoriamente si salirse de la pantalla
-            btnNo.addEventListener('mouseover',() => {
-                const maxWidth = window.innerWidth - btnNo.offsetWidth;
-                const maxHeight = 200; //limite dentro del contenedor
+    <script>
+        const btnNo = document.querySelector('.no');
+        const btnSi = document.querySelector('.si');
+        const mensaje = document.querySelector('.mensaje-final');
+        const contenedor = document.querySelector('.botones');
 
-                const x = Math.random() * maxWidth;
-                const y = Math.random() * maxHeight;
+        // Mueve el botón "No" aleatoriamente dentro del área del contenedor
+        btnNo.addEventListener('mouseover', () => {
+            const contWidth = contenedor.offsetWidth;
+            const contHeight = contenedor.offsetHeight;
+            const btnWidth = btnNo.offsetWidth;
+            const btnHeight = btnNo.offsetHeight;
 
-                btnNo.style.left = `${x}px`;
-                btnNo.style.top = `${y}px`;
-            });
+            const x = Math.random() * (contWidth - btnWidth);
+            const y = Math.random() * (contHeight - btnHeight);
 
-            btnSi.addEventListener('click',() => {
-                mensaje.style.display = 'block';
-                btnSi.style.display = 'none';
-                btnNo.style.display = 'none';
-            });
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
+        });
 
-        </script>
-    </body>
+        btnSi.addEventListener('click', () => {
+            mensaje.style.display = 'block';
+            btnSi.style.display = 'none';
+            btnNo.style.display = 'none';
+        });
+    </script>
+</body>
 </html>
