@@ -151,7 +151,7 @@
   </div>
 
   <!-- Música de fondo -->
-  <audio id="musica" autoplay loop>
+  <audio id="musica" loop muted playsinline>
     <source src="howdeep.mp3" type="audio/mp3">
   </audio>
 
@@ -214,6 +214,7 @@
     });
 
     function iniciarTodo() {
+      musica.muted = false;
       musica.play().catch(() => {});
       pantallaInicial.style.display = 'none';
       contenedor.style.display = 'block';
