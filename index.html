@@ -18,6 +18,7 @@
       margin-top: 100px;
       z-index: 10;
       position: relative;
+      display: none;
     }
 
     h1 {
@@ -101,6 +102,24 @@
       pointer-events: none;
       z-index: 1;
       overflow: hidden;
+      display: none;
+    }
+
+    #pantalla-inicial {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffe6f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-size: 24px;
+      color: #d63384;
+      text-align: center;
+      padding: 20px;
     }
 
     /* Móviles */
@@ -127,6 +146,10 @@
 
 <body>
 
+  <div id="Pantalla-inicial">
+    💖 Tocá para empezar 💖
+  </div>
+
   <!-- Música de fondo -->
   <audio id="musica" autoplay loop>
     <source src="howdeep.mp3" type="audio/mp3">
@@ -148,6 +171,10 @@
     const btnSi = document.querySelector('.si');
     const mensaje = document.querySelector('.mensaje-final');
     const musica = document.getElementById('musica');
+    const contenedor = document.querySelector('.contenedor');
+    const corazonesContainer = document.getElementById('corazones-container');
+    const pantallaInicial = document.getElementById('pantalla-inicial');
+
 
     function moverBoton() {
       const maxWidth = window.innerWidth - btnNo.offsetWidth;
@@ -168,7 +195,7 @@
       corazon.style.fontSize = (Math.random() * 20 + 20) + 'px';
       corazon.style.animationDuration = (Math.random() * 5 + 5) + 's';
 
-      document.getElementById('corazones-container').appendChild(corazon);
+      corazonesContainer.appendChild(corazon);
 
       setTimeout(() => corazon.remove(), 10000);
     }
@@ -186,18 +213,20 @@
       btnNo.style.display = 'none';
     });
 
-    // Corazones flotantes constantes
-    setInterval(crearCorazon, 200);
-
-    function iniciarMusica () {
+    function iniciarTodo() {
       musica.play().catch(() => {});
-      document.removeEventListener('click',iniciarMusica);
-      document.removeEventListener('touchstart', iniciarMusica);
+      pantallaInicial.style.display = 'none';
+      contenedor.style.display = 'block';
+      corazonesContainer.style.display = 'block';
+      setInterval(crearCorazon, 200);
+
+      // Eliminar listener para no duplicar si vuelve a hacer clic
+      document.removeEventListener('click', iniciarTodo);
+      document.removeEventListener('touchstart', iniciarTodo);
     }
 
-    document.addEventListener('click', iniciarMusica);
-    document.addEventListener('touchstart', iniciarMusica);
-
+    document.addEventListener('click', iniciarTodo);
+    document.addEventListener('touchstart', iniciarTodo);
   </script>
 </body>
 </html>
