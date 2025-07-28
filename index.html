@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¿Querés ser mi novia?</title>
   <style>
     body {
@@ -60,6 +61,32 @@
       background-color: #999999;
     }
 
+    .corazones::before,
+    .corazones::after {
+      content: "💖💗💓💘💕💞";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      font-size: 30px;
+      animation: float 10s linear infinite;
+      white-space: nowrap;
+      z-index: 0;
+    }
+
+    .corazones::after {
+      animation-delay: 5s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(-100%);
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100%);
+      }
+    }
+
     .mensaje-final {
       display: none;
       font-size: 32px;
@@ -67,36 +94,27 @@
       margin-top: 50px;
     }
 
-    .corazon {
-      position: absolute;
-      font-size: 24px;
-      animation: flotar 10s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes flotar {
-      0% {
-        transform: translateY(100vh);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
-    }
-
     audio {
       display: none;
     }
 
+    /* Móviles */
     @media screen and (max-width: 600px) {
       h1 {
-        font-size: 28px;
+        font-size: 24px;
       }
 
       button {
-        font-size: 18px;
-        padding: 12px 20px;
+        font-size: 16px;
+        padding: 10px 16px;
+      }
+
+      .si {
+        left: 25%;
+      }
+
+      .no {
+        left: 60%;
       }
     }
   </style>
@@ -104,8 +122,9 @@
 
 <body>
 
+  <!-- Música de fondo -->
   <audio autoplay loop>
-    <source src="TU_URL_DE_AUDIO_AQUI.mp3" type="audio/mp3">
+    <source src="https://limewire.com/d/zogIf#xkxio0NjkF" type="audio/mp3">
   </audio>
 
   <div class="contenedor">
@@ -114,52 +133,36 @@
       <button class="si">Sí 🥰</button>
       <button class="no">No 😔</button>
     </div>
-    <div class="mensaje-final">¡Sabía que ibas a decir que sí! 💖 Te amo mucho 😘 </div>
+    <div class="mensaje-final">¡Sabía que ibas a decir que sí! 💖 Te amo mucho 😘</div>
   </div>
 
-  <!-- Contenedor donde se agregan los corazones -->
-  <div id="corazones-container"></div>
+  <div class="corazones"></div>
 
   <script>
     const btnNo = document.querySelector('.no');
     const btnSi = document.querySelector('.si');
     const mensaje = document.querySelector('.mensaje-final');
 
-    // Movimiento del botón "No"
-    btnNo.addEventListener('mouseover', () => {
+    function moverBoton() {
       const maxWidth = window.innerWidth - btnNo.offsetWidth;
-      const maxHeight = 200;
+      const maxHeight = window.innerHeight - btnNo.offsetHeight - 100;
+
       const x = Math.random() * maxWidth;
       const y = Math.random() * maxHeight;
+
       btnNo.style.left = `${x}px`;
       btnNo.style.top = `${y}px`;
-    });
+    }
+
+    btnNo.addEventListener('mouseenter', moverBoton);
+    btnNo.addEventListener('click', moverBoton);
+    btnNo.addEventListener('touchstart', moverBoton);
 
     btnSi.addEventListener('click', () => {
       mensaje.style.display = 'block';
       btnSi.style.display = 'none';
       btnNo.style.display = 'none';
     });
-
-    // Generador de corazones flotantes
-    function crearCorazon() {
-      const corazon = document.createElement('div');
-      corazon.classList.add('corazon');
-      corazon.textContent = '💖';
-      corazon.style.left = Math.random() * 100 + 'vw';
-      corazon.style.fontSize = (Math.random() * 20 + 20) + 'px';
-      corazon.style.animationDuration = (Math.random() * 5 + 5) + 's';
-
-      document.getElementById('corazones-container').appendChild(corazon);
-
-      // Eliminar el corazón después de que termina su animación
-      setTimeout(() => {
-        corazon.remove();
-      }, 10000);
-    }
-
-    // Generar corazones cada 300ms
-    setInterval(crearCorazon, 50);
   </script>
 </body>
 </html>
