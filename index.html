@@ -129,7 +129,7 @@
 
   <!-- Música de fondo -->
   <audio autoplay loop>
-    <source src="https://limewire.com/d/zogIf#xkxio0NjkF" type="audio/mp3">
+    <source src="https://github.com/GeronimoGuevara/queridaprincesa/blob/8233691c7ffccb135ee7614a636c678668fcea35/Romantic%20Sax%20-%20How%20Deep%20is%20Your%20Love.mp3" type="audio/mp3">
   </audio>
 
   <div class="contenedor">
@@ -147,6 +147,7 @@
     const btnNo = document.querySelector('.no');
     const btnSi = document.querySelector('.si');
     const mensaje = document.querySelector('.mensaje-final');
+    const musica = document.getElementById('musica');
 
     function moverBoton() {
       const maxWidth = window.innerWidth - btnNo.offsetWidth;
@@ -186,6 +187,16 @@
 
     // Corazones flotantes constantes
     setInterval(crearCorazon, 200);
+
+    function iniciarMusica () {
+      musica.play().catch(() => {});
+      document.removeEventListener('click',iniciarMusica);
+      document.removeEventListener('touchstart', iniciarMusica);
+    }
+
+    document.addEventListener('click', iniciarMusica);
+    document.addEventListener('touchstart', iniciarMusica);
+
   </script>
 </body>
 </html>
