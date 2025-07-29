@@ -1,4 +1,233 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  //}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Querés ser mi novia?</title>
+  <style>
+    body {
+      margin: 0;
+      background: #ffe6f0;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .contenedor {
+      text-align: center;
+      margin-top: 100px;
+      z-index: 10;
+      position: relative;
+      display: none;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 40px;
+      margin: 20px;
+    }
+
+    .botones {
+      margin-top: 30px;
+      position: relative;
+      height: 200px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      position: absolute;
+    }
+
+    .si {
+      background-color: #ff66b2;
+      color: white;
+      left: 35%;
+    }
+
+    .no {
+      background-color: #cccccc;
+      color: #333;
+      left: 55%;
+    }
+
+    .si:hover {
+      background-color: #ff3399;
+    }
+
+    .no:hover {
+      background-color: #999999;
+    }
+
+    .mensaje-final {
+      display: none;
+      font-size: 32px;
+      color: #ff3385;
+      margin-top: 50px;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .corazon {
+      position: absolute;
+      bottom: 0;
+      animation: flotar 10s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Contenedor de corazones flotantes */
+    #corazones-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+      display: none;
+    }
+
+    #pantalla-inicial {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffe6f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-size: 24px;
+      color: #d63384;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Móviles */
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 10px 16px;
+      }
+
+      .si {
+        left: 25%;
+      }
+
+      .no {
+        left: 60%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pantalla-inicial">
+    💖 Tocá para empezar 💖
+  </div>
+
+  <!-- Música de fondo -->
+  <audio id="musica" loop muted playsinline>
+    <source src="howdeep.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="contenedor">
+    <h1>¿Querés ser mi novia? ❤️</h1>
+    <div class="botones">
+      <button class="si">Sí 🥰</button>
+      <button class="no">No 😔</button>
+    </div>
+    <div class="mensaje-final">¡Sabía que ibas a decir que sí! 💖 Te amo mucho 😘</div>
+  </div>
+
+  <div id="corazones-container"></div>
+
+  <script>
+    const btnNo = document.querySelector('.no');
+    const btnSi = document.querySelector('.si');
+    const mensaje = document.querySelector('.mensaje-final');
+    const musica = document.getElementById('musica');
+    const contenedor = document.querySelector('.contenedor');
+    const corazonesContainer = document.getElementById('corazones-container');
+    const pantallaInicial = document.getElementById('pantalla-inicial');
+
+
+    function moverBoton() {
+      const maxWidth = window.innerWidth - btnNo.offsetWidth;
+      const maxHeight = window.innerHeight - btnNo.offsetHeight - 140;
+
+      const x = Math.random() * maxWidth;
+      const y = Math.random() * maxHeight;
+
+      btnNo.style.left = `${x}px`;
+      btnNo.style.top = `${y}px`;
+    }
+
+    function crearCorazon() {
+      const corazon = document.createElement('div');
+      corazon.classList.add('corazon');
+      corazon.textContent = '💖';
+      corazon.style.left = Math.random() * 100 + 'vw';
+      corazon.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      corazon.style.animationDuration = (Math.random() * 5 + 5) + 's';
+
+      corazonesContainer.appendChild(corazon);
+
+      setTimeout(() => corazon.remove(), 10000);
+    }
+
+    // Movimiento infinito del botón "No"
+    btnNo.addEventListener('mouseenter', moverBoton);
+    btnNo.addEventListener('click', moverBoton);
+    btnNo.addEventListener('touchstart', moverBoton);
+
+    // Botón "Sí"
+    btnSi.addEventListener('click', () => {
+      musica.play().catch(() => {});
+      mensaje.style.display = 'block';
+      btnSi.style.display = 'none';
+      btnNo.style.display = 'none';
+    });
+
+    function iniciarTodo() {
+      musica.muted = false;
+      musica.play().catch(() => {});
+      pantallaInicial.style.display = 'none';
+      contenedor.style.display = 'block';
+      corazonesContainer.style.display = 'block';
+      setInterval(crearCorazon, 200);
+
+      // Eliminar listener para no duplicar si vuelve a hacer clic
+      document.removeEventListener('click', iniciarTodo);
+      document.removeEventListener('touchstart', iniciarTodo);
+    }
+
+    document.addEventListener('click', iniciarTodo);
+    document.addEventListener('touchstart', iniciarTodo);
+  </script>
+</body>
+</html>
